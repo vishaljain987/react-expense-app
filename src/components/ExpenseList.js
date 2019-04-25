@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import ExpenseListItem from './ExpenseListItem';
 import selectExpenses from '../selectors/expenses';
+import {setExpense} from '../actions/expenses';
 
 export const ExpenseList = (props) => {
+
+  useEffect(()=>{
+    console.log('Inside ExpenseList useEffect...')
+    props.setExpense();
+  },[])
 
   const expensesArr =  props.expenses.map((expense) => {
                           return <ExpenseListItem key={expense.id} {...expense} />;
@@ -30,4 +36,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ExpenseList);
+export default connect(mapStateToProps, {setExpense})(ExpenseList);
