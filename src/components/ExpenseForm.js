@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 export default class ExpenseForm extends React.Component {
   constructor(props) {
@@ -57,7 +58,57 @@ export default class ExpenseForm extends React.Component {
     return (
       <div>
         {this.state.error && <p>{this.state.error}</p>}
-        <form onSubmit={this.onSubmit}>
+        <Form style={{ width: '600px', padding: '25px'}} onSubmit={this.onSubmit}>
+          <FormGroup>
+          <Label>Description</Label>
+          <Input
+            type="text"
+            placeholder="Description"
+            autoFocus
+            value={this.state.description}
+            onChange={this.onDescriptionChange}
+          />
+          </FormGroup>
+          <FormGroup>
+          <Label>Amount</Label>
+          <Input
+            type="text"
+            placeholder="Amount"
+            value={this.state.amount}
+            onChange={this.onAmountChange}
+          />
+          </FormGroup>
+          <FormGroup>
+          <Label>Date</Label>
+          <br/>
+          <SingleDatePicker
+            date={this.state.createdAt}
+            onDateChange={this.onDateChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={() => false}
+          />
+          </FormGroup>
+          <FormGroup>
+          <Label>Note</Label>
+          <br/>
+          <textarea
+            placeholder="Add a note for your expense (optional)"
+            value={this.state.note}
+            onChange={this.onNoteChange}
+          >
+          </textarea>
+          </FormGroup>
+          <Button color="primary">Add Expense</Button>
+        </Form>
+      </div>
+    )
+  }
+}
+
+
+/*  <form onSubmit={this.onSubmit}>
           <input
             type="text"
             placeholder="Description"
@@ -85,9 +136,6 @@ export default class ExpenseForm extends React.Component {
             onChange={this.onNoteChange}
           >
           </textarea>
-          <button>Add Expense</button>
+          <Button color="danger">Add Expense</Button>
         </form>
-      </div>
-    )
-  }
-}
+*/
